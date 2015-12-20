@@ -70,8 +70,27 @@ define(function (require) {
         return monadObj.mApply(func, monadObj, context);
     }
 
+    /**
+     * Monad类型类的do记法实现
+     * 用来做数据流编程
+     *
+     * @param {Monad} seed 初始值
+     *
+     * @return {Monad}
+     */
+    function flow(seed) {
+        // 第一个参数是初始值，后面的是monad方法
+        var funcs = ([]).slice.call(arguments, 0);
+        funcs.shift();
+        for (var i = 0; i < funcs.length; i++) {
+            seed = mApply(funcs[i], seed);
+        }
+        return seed;
+    }
+
     return {
         Monad: Monad,
-        mApply: mApply 
+        mApply: mApply,
+        flow: flow 
     };
 });
