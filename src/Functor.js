@@ -37,11 +37,10 @@ define(function (require) {
      *
      * @param {function} func 需要应用的函数
      * @param {Functor} functorObj Functor的实例
-     * @param {*} context 执行上下文
      *
      * @return 
      */
-    Functor.prototype.fmap = function (func, functorObj, context) {
+    Functor.prototype.fmap = function (func, functorObj) {
         throw ('please implement fmap');
     };
 
@@ -52,15 +51,14 @@ define(function (require) {
      *
      * @param {function} func 需要应用的函数
      * @param {Functor} functorObj Functor的实例
-     * @param {*} context 执行上下文
      *
      * @return {Functor}
      */
-    function fmap(func, functorObj, context) {
+    function fmap(func, functorObj) {
         if (!(functorObj instanceof Functor)) {
             throw ('param is not a Functor');
         }
-        return functorObj.fmap(func, functorObj, context);
+        return functorObj.fmap(func);
     }
 
     return {

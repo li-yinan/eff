@@ -43,7 +43,6 @@ define(function (require) {
      *
      * @param {function} func 需要应用的函数
      * @param {Monad} monadObj Monad的实例
-     * @param {*} context 执行上下文
      *
      * @return {Monad}
      */
@@ -58,16 +57,15 @@ define(function (require) {
      *
      * @param {function} func 需要应用的函数
      * @param {Monad} monadObj Monad的实例
-     * @param {*} context 执行上下文
      *
      * @return {Monad}
      */
-    function mApply(func, monadObj, context) {
+    function mApply(func, monadObj) {
         if (!(monadObj instanceof Monad)) {
             throw ('param is not a monad');
         }
         var data = monadObj.getData();
-        return monadObj.mApply(func, monadObj, context);
+        return monadObj.mApply(func);
     }
 
     /**

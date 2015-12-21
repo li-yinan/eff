@@ -34,19 +34,17 @@ define(function (require) {
      * Either类的Functor实现
      *
      * @param {function} func 需要应用的函数
-     * @param {Either} Either Either的实例
-     * @param {*} context 执行上下文
      * @override
      *
      * @return {Either}
      */
-    Either.prototype.fmap = function (func, eitherObj, context) {
-        if (eitherObj instanceof Left) {
-            return eitherObj;
+    Either.prototype.fmap = function (func) {
+        if (this instanceof Left) {
+            return this;
         }
-        else if (eitherObj instanceof Right) {
-            var data = eitherObj.getData();
-            var result = func.call(context, data);
+        else if (this instanceof Right) {
+            var data = this.getData();
+            var result = func(data);
             return Right(result);
         }
         throw ('data is not a Either instance!');
@@ -59,18 +57,17 @@ define(function (require) {
      *
      * @param {function} func 需要应用的函数
      * @param {Either} Either Either的实例
-     * @param {*} context 执行上下文
      * @override
      *
      * @return {Either}
      */
-    Either.prototype.mApply = function (func, eitherObj, context) {
-        if (eitherObj instanceof Left) {
-            return eitherObj;
+    Either.prototype.mApply = function (func) {
+        if (this instanceof Left) {
+            return this;
         }
-        else if (eitherObj instanceof Right) {
-            var data = eitherObj.getData();
-            var result = func.call(context, data);
+        else if (this instanceof Right) {
+            var data = this.getData();
+            var result = func(data);
             if (!(result instanceof Either)) {
                 throw ('return is not a Either Monad');
             }
