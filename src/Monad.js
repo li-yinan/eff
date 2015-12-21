@@ -42,12 +42,26 @@ define(function (require) {
      * 本来是叫apply的，但是apply容易误解为function的apply，该为mApply了
      *
      * @param {function} func 需要应用的函数
-     * @param {Monad} monadObj Monad的实例
      *
      * @return {Monad}
      */
-    Monad.prototype.mApply = function (func, monadObj) {
+    Monad.prototype.mApply = function (func) {
         throw ('please implement mApply');
+    };
+
+    /**
+     * Monad类型类的>>方法实现
+     *
+     * @param {function} func 需要应用的函数
+     *
+     * @return {Monad}
+     */
+    Monad.prototype.always = function (func) {
+        var result = func();
+        if (!(result instanceof Either)) {
+            throw ('return is not a Either Monad');
+        }
+        return result;
     };
 
     util.inherit(Monad, Functor);
@@ -64,7 +78,6 @@ define(function (require) {
         if (!(monadObj instanceof Monad)) {
             throw ('param is not a monad');
         }
-        var data = monadObj.getData();
         return monadObj.mApply(func);
     }
 
